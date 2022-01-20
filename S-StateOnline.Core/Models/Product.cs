@@ -11,11 +11,11 @@ namespace S_StateOnline.Core.Models
     public class Product
     {
         public string Id { get; set; }
-        [StringLength(20)]
+        [StringLength(30)]
         [DisplayName("Product Name")]
         public string Name { get; set; }
         public string Description { get; set; }
-        [Range(0,100000)]
+        [Range(0,50000)]
         public decimal Price { get; set; }
         public string Category { get; set; }
         public string Image { get; set; }
