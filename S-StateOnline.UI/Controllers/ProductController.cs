@@ -21,6 +21,12 @@ namespace S_StateOnline.UI.Controllers
             List<Product> products = context.Collection().ToList();
             return View(products);
         }
+        public ActionResult Create()
+        {
+            Product product = new Product();
+            return View(product);
+        }
+        [HttpPost]
         public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
@@ -65,6 +71,35 @@ namespace S_StateOnline.UI.Controllers
                 prod.Image = product.Image;
                 prod.Name = product.Name;
                 prod.Price = product.Price;
+                context.Commit();
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult Delete(string Id)
+        {
+            Product prodiuctToDelete = context.Find(Id);
+            if(prodiuctToDelete == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(prodiuctToDelete);
+            }
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(string Id)
+        {
+            Product prodiuctToDelete = context.Find(Id);
+            if (prodiuctToDelete == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                context.Delete(Id);
                 context.Commit();
                 return RedirectToAction("Index");
             }
