@@ -29,7 +29,7 @@ namespace S_StateOnline.UI.Controllers
         [HttpPost]
         public ActionResult Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(product);
             }
