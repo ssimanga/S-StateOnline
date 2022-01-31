@@ -10,6 +10,7 @@ namespace S_StateOnline.DataAccess.Inmemory
 {
    public class CategoryRepository
     {
+
         ObjectCache cache = MemoryCache.Default;
         List<ProductCategory> productCategories;
 

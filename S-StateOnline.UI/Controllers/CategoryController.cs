@@ -18,25 +18,26 @@ namespace S_StateOnline.UI.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            List<ProductCategory> categories = context.Collection().ToList();
-            return View(categories);
+            List<ProductCategory> productCategories = context.Collection().ToList();
+            return View(productCategories);
         }
 
         public ActionResult Create()
         {
-            ProductCategory category = new ProductCategory();
-            return View(category);
+            ProductCategory productCategory = new ProductCategory();
+            return View(productCategory);
         }
+
         [HttpPost]
-        public ActionResult Create(ProductCategory category)
+        public ActionResult Create(ProductCategory productCategory)
         {
             if (!ModelState.IsValid)
             {
-                return View(category);
+                return View(productCategory);
             }
             else
             {
-                context.Insert(category);
+                context.Insert(productCategory);
                 context.Commit();
                 return RedirectToAction("Index");
             }
@@ -44,32 +45,28 @@ namespace S_StateOnline.UI.Controllers
 
         public ActionResult Edit(string Id)
         {
-            ProductCategory category = context.Find(Id);
-            if (category == null)
+            ProductCategory productCategory = context.Find(Id);
+            if (productCategory == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                return View(category);
+                return View(productCategory);
             }
         }
+
         [HttpPost]
-        public ActionResult Edit(ProductCategory category, string Id)
+        public ActionResult Edit(ProductCategory productCategory, string Id)
         {
-            ProductCategory cat = context.Find(Id);
-            if (cat == null)
+            ProductCategory productCategoryToEdit = context.Find(Id);
+            if (productCategory == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(category);
-                }
-                cat.Category = category.Category;
-    
+                productCategoryToEdit.Category = productCategory.Category;
                 context.Commit();
                 return RedirectToAction("Index");
             }
@@ -77,22 +74,23 @@ namespace S_StateOnline.UI.Controllers
 
         public ActionResult Delete(string Id)
         {
-            ProductCategory categoryToDelete = context.Find(Id);
-            if (categoryToDelete == null)
+            ProductCategory productCategoryToDel = context.Find(Id);
+            if (productCategoryToDel == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                return View(categoryToDelete);
+                return View(productCategoryToDel);
             }
         }
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
         {
-            ProductCategory categoryToDelete = context.Find(Id);
-            if (categoryToDelete == null)
+            ProductCategory productCategoryToDel = context.Find(Id);
+            if (productCategoryToDel == null)
             {
                 return HttpNotFound();
             }
